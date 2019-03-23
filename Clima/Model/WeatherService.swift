@@ -20,7 +20,9 @@ struct WeatherService {
     
     
     // MARK: - Networking
-    // API call with location coordinates
+    /***************************************************************/
+    
+    // API call with location coordinates parameter
     
     func getWeatherData(for location: Location, callback: @escaping (Result<Weather>) -> Void) {
         let parameters = ["lat" : String(location.lat),
@@ -43,7 +45,7 @@ struct WeatherService {
     }
     
     
-    // API call with a city name
+    // API call with a city name parameter
     
     func getWeatherData(for cityName: String, callback: @escaping (Result<Weather>) -> Void) {
         let parameters = ["q" : cityName,
@@ -66,10 +68,11 @@ struct WeatherService {
     
     
     // MARK: - JSON Parsing
+    /***************************************************************/
+    
     // this method parses JSON with weather data and converts it to Weather model
     
     fileprivate func parseWeatherData(_ json: JSON) -> Result<Weather> {
-        print(json)
         if let temp = json["main"]["temp"].double {
             let temperature = Int(temp - 273.15)
             let city = json["name"].stringValue

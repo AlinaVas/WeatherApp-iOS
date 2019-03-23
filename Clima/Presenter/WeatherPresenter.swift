@@ -37,23 +37,17 @@ class WeatherPresenter: LocationServiceDelegate, ChangeCityDelegate {
     /***************************************************************/
     
     func locationUpdate(with result: Result<Location>) {
-        print("location updated ")
         switch result {
         case .success(let location):
-            print("success")
             weatherService.getWeatherData(for: location) { [unowned self] result in
-                print("weather result")
                 switch result {
                 case .success(let weather):
-                    print("weather success")
                     self.viewDelegate?.displayWeather(weather.description)
                 case .failure(let error):
-                    print("weather fail")
                     self.viewDelegate?.displayError(message: error.description)
                 }
             }
         case .failure(let error):
-            print("failure")
             viewDelegate?.displayError(message: error.description)
         }
     }
@@ -65,10 +59,8 @@ class WeatherPresenter: LocationServiceDelegate, ChangeCityDelegate {
         weatherService.getWeatherData(for: city) { [unowned self] result in
             switch result {
             case .success(let weather):
-                print("weather success")
                 self.viewDelegate?.displayWeather(weather.description)
             case .failure(let error):
-                print("weather fail")
                 self.viewDelegate?.displayError(message: error.description)
             }
         }

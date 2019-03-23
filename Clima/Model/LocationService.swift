@@ -25,12 +25,14 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     override init() {
         super.init()
-        print("location service init")
+
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
+    
 
-    // MARK: - CLLocationManagerDelegate methods
+    //MARK: - Location Manager Delegate Methods
+    /***************************************************************/
 
     // stops updating after location is found
     // after location's updated, it will be passed to WeatherPresenter (in property observer)
@@ -48,7 +50,6 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     // error is passed to WeatherPresenter in case of location updates failure
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location manager was unable to retrieve a location value: ", error.localizedDescription)
         delegate?.locationUpdate(with: .failure(.locationUnavailable))
     }
     
